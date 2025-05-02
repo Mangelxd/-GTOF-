@@ -1,73 +1,108 @@
-Proyecto de Gestión de Trazabilidad por Orden de Fabricación
-Este sistema ha sido desarrollado para facilitar la gestión de trazabilidad de materiales vinculados a órdenes de fabricación (DocNum) en un entorno de tipo SAP Business One. Proporciona una interfaz web práctica y eficiente para visualizar, modificar e imprimir información crítica asociada a cada orden.
+# Gestión de Trazabilidad por Orden de Fabricación
 
-Características principales
-Al introducir una orden de fabricación (DocNum), la aplicación permite:
+Este proyecto proporciona una solución completa para gestionar la trazabilidad de materiales según órdenes de fabricación (`DocNum`) en un entorno que simula SAP Business One. A través de una interfaz web sencilla, permite consultar, modificar e imprimir datos críticos de materiales y ubicaciones de forma centralizada.
 
-Consultar los materiales pendientes por línea.
+---
 
-Identificar su ubicación física dentro del almacén (bins).
+## Tabla de Contenidos
 
-Visualizar el proyecto asociado a cada orden.
+- [Características](#características)
+- [Funcionamiento](#funcionamiento)
+- [Estructura de Datos](#estructura-de-datos)
+- [Interfaz Web](#interfaz-web)
+- [Requisitos Técnicos](#requisitos-técnicos)
+- [Público Objetivo](#público-objetivo)
 
-Editar información detallada por línea: cantidad, lote, observaciones, ubicación.
+---
 
-Imprimir etiquetas con código QR para cada material.
+## Características
 
-Guardar automáticamente los datos en una tabla histórica, sin duplicados.
+- Consulta rápida de materiales pendientes por orden de fabricación.
+- Visualización de ubicación física en almacén.
+- Asociación clara a proyectos.
+- Edición directa de información por línea (cantidad, lote, ubicación, observaciones).
+- Impresión de etiquetas con códigos QR.
+- Registro automático en una tabla histórica sin duplicados.
+- Identificación única por línea en formato `DocNum;N`.
 
-Generar identificadores únicos por línea en formato DocNum;N.
+---
 
-Funcionamiento del sistema
-El usuario accede a la web e introduce un DocNum.
+## Funcionamiento
 
-Se ejecuta el procedimiento Actualizar_M_BK_ResgistroTrazabilidad, que consulta los datos desde el sistema base.
+1. El usuario accede a la aplicación web e introduce un número de orden de fabricación.
+2. Se ejecuta el procedimiento `Actualizar_M_BK_ResgistroTrazabilidad`, que extrae los datos desde la base.
+3. Se rellenan o actualizan los registros en la tabla `M_BK_ResgistroTrazabilidad`.
+4. Cada línea puede editarse individualmente desde la interfaz.
+5. Es posible imprimir una etiqueta por material, con código QR, seleccionando la impresora.
 
-Los resultados se insertan o actualizan en la tabla M_BK_ResgistroTrazabilidad.
+---
 
-Cada línea se muestra en pantalla y puede ser editada.
+## Estructura de Datos
 
-Desde esa misma vista, el usuario puede imprimir una etiqueta individual con QR.
+Los procedimientos almacenados acceden a las siguientes tablas simuladas del entorno SAP:
 
-El sistema garantiza que no se dupliquen líneas ya existentes.
+| Tabla         | Descripción                        |
+|---------------|------------------------------------|
+| `OWOR`, `WOR1`| Órdenes de fabricación             |
+| `OITM`        | Artículos                          |
+| `OITW`, `OIBQ`| Inventario y stock                 |
+| `OBIN`        | Ubicaciones de almacén            |
+| `M_BK_ResgistroTrazabilidad` | Tabla histórica de trazabilidad |
 
-Estructura de datos y orígenes
-La aplicación utiliza procedimientos que consultan directamente tablas simuladas del entorno SAP:
+---
 
-OWOR, WOR1 para órdenes de fabricación.
+## Interfaz Web
 
-OITM, OITW, OIBQ, OBIN para artículos, stock y ubicaciones.
+- **Pantalla principal:** búsqueda por `DocNum` y filtrado por `PartNumber`.
+- **Resultados interactivos:** muestra todas las líneas de la orden con información relevante.
+- **Formularios por línea:** edición de datos como ubicación, cantidad, lote y observaciones.
+- **Selector de impresora:** para enviar etiquetas directamente desde la interfaz.
+- **Impresión con QR:** etiquetas generadas automáticamente usando `phpqrcode`.
 
-La tabla de trabajo principal es M_BK_ResgistroTrazabilidad.
+---
 
-Interfaz web
-La aplicación incluye:
+## Requisitos Técnicos
 
-Una pantalla de búsqueda por número de orden.
+### Infraestructura de red
 
-Resultados dinámicos agrupados por línea de material.
+- **Servidor DNS** configurado (recomendado en Windows Server o Bind9 en Linux) para resolución de nombres local.
+- **Servidor DHCP** para asignación automática de direcciones IP (opcional si se usa direccionamiento estático).
+- Conectividad en red local (LAN) entre los equipos cliente, el servidor web y el servidor de base de datos.
 
-Formularios para modificar campos clave: ubicación, cantidad a adquirir, lote, observaciones.
+### Servidor web
 
-Selector de impresora para generar etiquetas directamente desde el navegador.
+- Sistema operativo: **Ubuntu Server** (recomendado) o cualquier distribución Linux compatible.
+- Servidor web: **Apache2** con PHP instalado.
+- Extensiones de PHP necesarias:
+  - `php-mbstring`
+  - `php-gd`
+  - `php-sqlsrv` (para conectar con SQL Server)
+  - `phpqrcode` (para generar códigos QR)
 
-Código QR generado en tiempo real con la librería phpqrcode.
+### Servidor de base de datos
 
-Sistema de autenticación por sesión.
+- **SQL Server** (puede alojarse en Windows Server)
+- Base de datos: `M_EXTRAS_TEST`
+- Permisos para crear procedimientos almacenados y tablas
+- Configuración del puerto SQL (por defecto: 1433) y acceso desde el servidor web
 
-Requisitos técnicos
-SQL Server
+### Impresión de etiquetas
 
-Base de datos M_EXTRAS_TEST
+- Sistema operativo compatible: **Ubuntu Server** o **Windows Server**
+- Servidor de impresión instalado con soporte para CUPS (`cups` y `lp` en Linux)
+- Impresoras compatibles (Godex, Zebra u otras que admitan impresión de imágenes PNG)
+- Acceso a red de las impresoras desde el servidor web
 
-Esquema de datos compatible con SAP Business One
+### Seguridad y control de acceso
 
-Servidor web con PHP (probado en Apache sobre Ubuntu)
+- Sistema de login con sesiones (ya integrado)
+- Firewall configurado para permitir tráfico HTTP/HTTPS y SQL Server
+- Opcional: VLAN o subred dedicada para el tráfico de impresión
 
-Librería phpqrcode instalada
+---
 
-Sistema de impresión con cups y soporte para lp
+## Público Objetivo
 
-Público objetivo
-Este sistema está orientado a responsables de producción, logística y calidad en entornos industriales. Es especialmente útil para empresas que trabajan con fabricación bajo pedido y necesitan trazabilidad detallada por línea, sin depender exclusivamente del ERP.
+Este sistema está orientado a entornos industriales o logísticos que requieran trazabilidad por lote, identificación física de materiales y control detallado de órdenes de producción. Es ideal para empresas que trabajan con fabricación bajo demanda y necesitan acceso rápido y visual a la información de almacén sin depender exclusivamente del ERP.
 
+---
