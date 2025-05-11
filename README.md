@@ -125,7 +125,7 @@ Estilo visual personalizado mediante style.css.
 
 ---
 
-###📚 Bibliografía
+### 📚 Bibliografía
 Documentación oficial de PHP: https://www.php.net/manual/es/
 
 Documentación de MySQL: https://dev.mysql.com/doc/
