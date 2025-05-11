@@ -101,6 +101,41 @@ Los procedimientos almacenados acceden a las siguientes tablas simuladas del ent
 
 ---
 
+🕓 Historial de Versiones
+📌 Versión 1.0 – [Actual]
+Fecha: Mayo 2025
+Descripción:
+Primera versión funcional del Sistema de Trazabilidad y Consulta de Fabricación (STCF).
+Se ha desarrollado una solución web con interfaz sencilla para gestionar información de materiales basada en órdenes de fabricación, permitiendo consultar, editar e imprimir etiquetas asociadas a cada línea.
+En esta versión se implementan las siguientes funcionalidades:
+
+Login básico por usuario.
+
+Conexión a base de datos MySQL.
+
+Consulta dinámica por DocNum.
+
+Visualización de materiales, cantidades y ubicaciones.
+
+Edición en línea de campos como cantidad pendiente y observación.
+
+Generación de etiquetas a partir de los datos obtenidos.
+
+Estilo visual personalizado mediante style.css.
+
+📚 Bibliografía
+Documentación oficial de PHP: https://www.php.net/manual/es/
+
+Documentación de MySQL: https://dev.mysql.com/doc/
+
+Manual de HTML y CSS - MDN Web Docs: https://developer.mozilla.org/es/docs/Web
+
+Fpdf para generación de PDFs en PHP: https://www.fpdf.org/
+
+Guía de conexión PHP a MySQL (W3Schools): https://www.w3schools.com/php/php_mysql_connect.asp
+
+SAP Business One – Guía de usuario (referencia conceptual para estructura de datos y trazabilidad): [Manual interno/no público]
+
 ## Público Objetivo
 
 Este sistema está orientado a entornos industriales o logísticos que requieran trazabilidad por lote, identificación física de materiales y control detallado de órdenes de producción. Es ideal para empresas que trabajan con fabricación bajo demanda y necesitan acceso rápido y visual a la información de almacén sin depender exclusivamente del ERP.
