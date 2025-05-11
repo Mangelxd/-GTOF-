@@ -101,7 +101,7 @@ Los procedimientos almacenados acceden a las siguientes tablas simuladas del ent
 
 ---
 
-🕓 Historial de Versiones
+### 🕓 Historial de Versiones
 📌 Versión 1.0 – [Actual]
 Fecha: Mayo 2025
 Descripción:
@@ -123,7 +123,9 @@ Generación de etiquetas a partir de los datos obtenidos.
 
 Estilo visual personalizado mediante style.css.
 
-📚 Bibliografía
+---
+
+###📚 Bibliografía
 Documentación oficial de PHP: https://www.php.net/manual/es/
 
 Documentación de MySQL: https://dev.mysql.com/doc/
@@ -136,8 +138,5 @@ Guía de conexión PHP a MySQL (W3Schools): https://www.w3schools.com/php/php_my
 
 SAP Business One – Guía de usuario (referencia conceptual para estructura de datos y trazabilidad): [Manual interno/no público]
 
-## Público Objetivo
-
-Este sistema está orientado a entornos industriales o logísticos que requieran trazabilidad por lote, identificación física de materiales y control detallado de órdenes de producción. Es ideal para empresas que trabajan con fabricación bajo demanda y necesitan acceso rápido y visual a la información de almacén sin depender exclusivamente del ERP.
 
 ---
