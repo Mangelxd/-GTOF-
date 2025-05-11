@@ -1,44 +1,51 @@
-CREATE TABLE dbo.M_BK_ResgistroTrazabilidad (
-    Id INT IDENTITY(1,1) PRIMARY KEY,
-    PartNumber NVARCHAR(50) NOT NULL,
-    Descripcion NVARCHAR(200) NULL,
-    CantidadPendiente INT NULL,
-    CantidadNecesaria INT NULL,
-    Ubicacion NVARCHAR(100) NULL,
-    UltimaActualizacion DATETIME NOT NULL DEFAULT GETDATE(),
-    Lote NVARCHAR(100) NULL,
-    Observacion NVARCHAR(500) NULL,
+-- Tabla principal de trazabilidad
+CREATE TABLE M_BK_ResgistroTrazabilidad (
+    Id INT AUTO_INCREMENT PRIMARY KEY,
+    PartNumber VARCHAR(50) NOT NULL,
+    Descripcion VARCHAR(200),
+    CantidadPendiente INT,
+    CantidadNecesaria INT,
+    Ubicacion VARCHAR(100),
+    UltimaActualizacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    Lote VARCHAR(100),
+    Observacion VARCHAR(500),
     DocNum INT NOT NULL,
-    Project NVARCHAR(50) NULL,
-    DocNumSecuencial NVARCHAR(50) NULL
-);
-CREATE TABLE SBO_M_ES_10.dbo.OITM (
-    ItemCode NVARCHAR(50) PRIMARY KEY,
-    ItemName NVARCHAR(200)
+    Project VARCHAR(50),
+    DocNumSecuencial VARCHAR(50)
 );
 
-CREATE TABLE SBO_M_ES_10.dbo.OWOR (
+-- Tabla de artículos
+CREATE TABLE SBO_M_ES_10_OITM (
+    ItemCode VARCHAR(50) PRIMARY KEY,
+    ItemName VARCHAR(200)
+);
+
+-- Tabla de órdenes de fabricación
+CREATE TABLE SBO_M_ES_10_OWOR (
     DocEntry INT PRIMARY KEY,
     DocNum INT UNIQUE,
     Status CHAR(1),
-    Project NVARCHAR(50)
+    Project VARCHAR(50)
 );
 
-CREATE TABLE SBO_M_ES_10.dbo.WOR1 (
+-- Detalles de órdenes de fabricación
+CREATE TABLE SBO_M_ES_10_WOR1 (
     DocEntry INT,
-    ItemCode NVARCHAR(50),
+    ItemCode VARCHAR(50),
     PlannedQty INT
 );
 
-CREATE TABLE SBO_M_ES_10.dbo.OITW (
-    ItemCode NVARCHAR(50),
-    WhsCode NVARCHAR(10),
+-- Stock por almacén
+CREATE TABLE SBO_M_ES_10_OITW (
+    ItemCode VARCHAR(50),
+    WhsCode VARCHAR(10),
     OnHand INT
 );
 
-CREATE TABLE SBO_M_ES_10.dbo.OIBQ (
-    ItemCode NVARCHAR(50),
-    WhsCode NVARCHAR(10),
+-- Stock por ubicación
+CREATE TABLE SBO_M_ES_10_OIBQ (
+    ItemCode VARCHAR(50),
+    WhsCode VARCHAR(10),
     BinAbs INT,
     OnHandQty INT
 );
