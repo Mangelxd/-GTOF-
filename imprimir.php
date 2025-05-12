@@ -10,11 +10,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Conexión a la base de datos
-    $serverName = "192.168.3.54";
+    $serverName = "";
     $connectionOptions = [
-        "Database" => "DHV_EXTRAS_TEST",
-        "Uid" => "sa",
-        "PWD" => "seidor.18",
+        "Database" => "",
+        "Uid" => "",
+        "PWD" => "",
         "Encrypt" => "no",
         "TrustServerCertificate" => "yes"
     ];
@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Consulta SQL
     $sql = "SELECT TOP 1 PartNumber, Descripcion, Ubicacion, CantidadNecesaria, Project, DocNum
-            FROM DHV_BK_ResgistroTrazabilidad
+            FROM BK_ResgistroTrazabilidad
             WHERE PartNumber = ? AND DocNum = ?
             ORDER BY Id DESC";
 
