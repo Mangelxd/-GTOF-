@@ -1,34 +1,36 @@
 <?php
-$serverName = "";
+$serverName = "192.168.3.54";
 
-// Conexión  a la tabla (datos de trazabilidad, OF, etc.)
+// Conexión a DHV_EXTRAS_TEST (datos de trazabilidad, OF, etc.)
 $connectionExtras = [
-    "Database" => "Nombre de la bd",
-    "Uid" => "username",
-    "PWD" => "password",
+    "Database" => "DHV_EXTRAS_TEST",
+    "Uid" => "sa",
+    "PWD" => "seidor.18",
     "Encrypt" => "no",
     "TrustServerCertificate" => "yes"
 ];
 $connExtras = sqlsrv_connect($serverName, $connectionExtras);
 
 if (!$connExtras) {
-    die(" Error conectando a DHV_EXTRAS_TEST: " . print_r(sqlsrv_errors(), true));
+    die("❌ Error conectando a DHV_EXTRAS_TEST: " . print_r(sqlsrv_errors(), true));
 }
 
-// Conexión a  (tabla OHEM para login)
+// Conexión a SBO_DHV_ES_10 (tabla OHEM para login)
 $connectionUsuarios = [
-    "Database" => "bd",
-    "Uid" => "username",
-    "PWD" => "password",
+    "Database" => "SBO_DHV_ES_10",
+    "Uid" => "sa",
+    "PWD" => "seidor.18",
     "Encrypt" => "no",
     "TrustServerCertificate" => "yes"
 ];
 $connUsuarios = sqlsrv_connect($serverName, $connectionUsuarios);
 
 if (!$connUsuarios) {
-    die("Error conectando de conexion: " . print_r(sqlsrv_errors(), true));
+    die("❌ Error conectando a SBO_DHV_ES_10: " . print_r(sqlsrv_errors(), true));
 }
 
-//  Esta es la conexión principal que usarán los archivos normales
+// 👉 Esta es la conexión principal que usarán los archivos normales
 $conn = $connExtras;
 ?>
+
+
