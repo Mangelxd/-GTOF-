@@ -7,7 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $cantidad_adquirir = (int) $form['cantidad_a_adquirir'];
     $nueva_cantidad = max($cantidad_original - $cantidad_adquirir, 0);
 
-    $sql = "UPDATE dbo.DHV_BK_ResgistroTrazabilidad
+    $sql = "UPDATE BK_ResgistroTrazabilidad
             SET Ubicacion = ?, CantidadPendiente = ?, Observacion = ?, Lote = ?, UltimaActualizacion = GETDATE()
             WHERE Id = ?";
     $params = [
