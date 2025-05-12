@@ -11,11 +11,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         die("❌ DocNum no proporcionado");
     }
 
-    $serverName = "192.168.3.54";
+    $serverName = "";
     $connectionOptions = [
-        "Database" => "DHV_EXTRAS_TEST",
-        "Uid" => "sa",
-        "PWD" => "seidor.18",
+        "Database" => "",
+        "Uid" => "",
+        "PWD" => "",
         "Encrypt" => "no",
         "TrustServerCertificate" => "yes"
     ];
