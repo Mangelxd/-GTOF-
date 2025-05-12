@@ -1,10 +1,10 @@
 <?php
-$serverName = "192.168.3.54"; // Cambia a la IP de tu servidor SQL Server
+$serverName = ""; // Cambia a la IP de tu servidor SQL Server
 
 $connectionOptions = array(
-    "Database" => "DHV_EXTRAS_TEST",
-    "UID" => "dhv",
-    "PWD" => "dhv",
+    "Database" => "",
+    "UID" => "",
+    "PWD" => "",
     "Encrypt" => "false", // <-- CAMBIA esta línea
     "TrustServerCertificate" => true
 );
