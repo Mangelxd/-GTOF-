@@ -16,11 +16,11 @@ $resultados = [];
 
 if ($conn) {
     if ($DocNum !== '') {
-        sqlsrv_query($conn, "EXEC dbo.Actualizar_DHV_BK_ResgistroTrazabilidad @DocNum = ?", [$DocNum]);
+        sqlsrv_query($conn, "EXEC dbo.Actualizar_BK_ResgistroTrazabilidad @DocNum = ?", [$DocNum]);
 
         $sql = "SELECT Id, PartNumber, Descripcion, CantidadPendiente, CantidadNecesaria, Ubicacion,
                Observacion, Lote, UltimaActualizacion, DocNum, Project
-        FROM dbo.DHV_BK_ResgistroTrazabilidad
+        FROM dbo.BK_ResgistroTrazabilidad
         WHERE DocNum = ?
           AND (
               Ubicacion IS NULL
@@ -37,8 +37,8 @@ $params = [$DocNum];
         $sql .= " ORDER BY Ubicacion ASC";
     } else {
         $sql = "SELECT * 
-        FROM [DHV_EXTRAS_TEST].[dbo].[DHV_Picking_OF] AS p
-        LEFT JOIN [DHV_EXTRAS_TEST].[dbo].[DHV_Ubicaciones] AS u
+        FROM [DHV_EXTRAS_TEST].[dbo].[Picking_OF] AS p
+        LEFT JOIN [EXTRAS_TEST].[dbo].[Ubicaciones] AS u
         ON p.UbicacionId = u.IdUbicacion
         WHERE p.FechaPicking <= DATEADD(MONTH, +2, GETDATE())
           AND p.statusSAP NOT IN ('C','L')
@@ -83,8 +83,8 @@ $params = [];
 <body>
 <header>
     <div style="display: flex; align-items: center;">
-        <img src="https://andaluciaaerospace.com/wp-content/uploads/2022/06/dhv-logo.png" alt="Logo empresa" />
-        <h1 style="margin: 0 0.5rem;">DHV Technology</h1>
+        <img src="" alt="Logo empresa" />
+        <h1 style="margin: 0 0.5rem;">Mi empresa</h1>
     </div>
     <div style="margin-left: auto;">
         <a href="logout.php" class="logout-btn">Logout</a>
