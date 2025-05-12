@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     $sql = "SELECT PartNumber, Descripcion, Ubicacion, CantidadNecesaria, Project
-            FROM DHV_BK_ResgistroTrazabilidad
+            FROM BK_ResgistroTrazabilidad
             WHERE DocNum = ?
             ORDER BY Id ASC";
 
