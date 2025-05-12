@@ -3,9 +3,9 @@ $serverName = "192.168.3.54";
 
 // Conexión a DHV_EXTRAS_TEST (datos de trazabilidad, OF, etc.)
 $connectionExtras = [
-    "Database" => "DHV_EXTRAS_TEST",
-    "Uid" => "sa",
-    "PWD" => "seidor.18",
+    "Database" => "EXTRAS_TEST",
+    "Uid" => "",
+    "PWD" => "",
     "Encrypt" => "no",
     "TrustServerCertificate" => "yes"
 ];
@@ -17,9 +17,9 @@ if (!$connExtras) {
 
 // Conexión a SBO_DHV_ES_10 (tabla OHEM para login)
 $connectionUsuarios = [
-    "Database" => "SBO_DHV_ES_10",
-    "Uid" => "sa",
-    "PWD" => "seidor.18",
+    "Database" => "_ES_10",
+    "Uid" => "",
+    "PWD" => "",
     "Encrypt" => "no",
     "TrustServerCertificate" => "yes"
 ];
