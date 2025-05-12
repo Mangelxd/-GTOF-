@@ -1,5 +1,5 @@
 <?php
-$serverName = "192.168.3.54";
+$serverName = "";
 
 // Conexión a DHV_EXTRAS_TEST (datos de trazabilidad, OF, etc.)
 $connectionExtras = [
