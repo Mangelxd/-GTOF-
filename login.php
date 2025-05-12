@@ -39,8 +39,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 </head>
 <body>
     <header>
-        <img src="https://andaluciaaerospace.com/wp-content/uploads/2022/06/dhv-logo.png" alt="Logo empresa" />
-        <h1>DHV Technology</h1>
+        <img src="" alt="Logo empresa" />
+        <h1>Mi Empresa</h1>
     </header>
 
     <h2>Iniciar sesión</h2>
