@@ -29,7 +29,7 @@ if (!$conn) {
 
 switch ($accion) {
     case 'empezar':
-        $queryCheck = "SELECT COUNT(*) AS total FROM DHV_Prod_Of WHERE usuario = ? AND hora_fin IS NULL";
+        $queryCheck = "SELECT COUNT(*) AS total FROM Prod_Of WHERE usuario = ? AND hora_fin IS NULL";
         $params = [$usuario];
         $stmt = sqlsrv_query($conn, $queryCheck, $params);
         $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
@@ -39,17 +39,17 @@ switch ($accion) {
             exit;
         }
 
-        $insert = "INSERT INTO DHV_Prod_Of (id_of, usuario, hora_inicio) VALUES (?, ?, ?)";
+        $insert = "INSERT INTO Prod_Of (id_of, usuario, hora_inicio) VALUES (?, ?, ?)";
         sqlsrv_query($conn, $insert, [$of, $usuario, $hora]);
 
-        $update = "UPDATE DHV_Picking_OF SET fecha_inicio = ?, estado = '1' WHERE NumOF = ? AND (estado = '0' OR estado = '3')";
+        $update = "UPDATE Picking_OF SET fecha_inicio = ?, estado = '1' WHERE NumOF = ? AND (estado = '0' OR estado = '3')";
         sqlsrv_query($conn, $update, [$hora, $of]);
 
         echo "Tarea iniciada.";
         break;
 
     case 'parar':
-        $update = "UPDATE DHV_Prod_Of SET hora_fin = ? WHERE usuario = ? AND id_of = ? AND hora_fin IS NULL";
+        $update = "UPDATE Prod_Of SET hora_fin = ? WHERE usuario = ? AND id_of = ? AND hora_fin IS NULL";
         $result = sqlsrv_query($conn, $update, [$hora, $usuario, $of]);
 
         if ($result) {
@@ -60,7 +60,7 @@ switch ($accion) {
         break;
 
     case 'cerrar':
-        $queryCheck = "SELECT COUNT(*) AS total FROM DHV_Prod_Of WHERE id_of = ? AND hora_fin IS NULL";
+        $queryCheck = "SELECT COUNT(*) AS total FROM Prod_Of WHERE id_of = ? AND hora_fin IS NULL";
         $params = [$of];
         $stmt = sqlsrv_query($conn, $queryCheck, $params);
         $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
@@ -70,7 +70,7 @@ switch ($accion) {
             exit;
         }
 
-        $update = "UPDATE DHV_Picking_OF SET fecha_fin = ?, estado = '2' WHERE NumOF = ?";
+        $update = "UPDATE Picking_OF SET fecha_fin = ?, estado = '2' WHERE NumOF = ?";
         sqlsrv_query($conn, $update, [$hora, $of]);
 
         echo "Tarea finalizada.";
