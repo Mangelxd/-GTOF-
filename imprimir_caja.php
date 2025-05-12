@@ -7,11 +7,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         die("❌ DocNum no proporcionado.");
     }
 
-    $serverName = "192.168.3.54";
+    $serverName = "";
     $connectionOptions = [
-        "Database" => "DHV_EXTRAS_TEST",
-        "Uid" => "sa",
-        "PWD" => "seidor.18",
+        "Database" => "",
+        "Uid" => "",
+        "PWD" => "",
         "Encrypt" => "no",
         "TrustServerCertificate" => "yes"
     ];
@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Ejecutar procedimiento
-    $sql = "EXEC dbo.DHV_EtiquetasCajas @NumOF = ?";
+    $sql = "EXEC EtiquetasCajas @NumOF = ?";
     $stmt = sqlsrv_query($conn, $sql, [$DocNum]);
     if (!$stmt) {
         die("❌ Error ejecutando el procedimiento: " . print_r(sqlsrv_errors(), true));
