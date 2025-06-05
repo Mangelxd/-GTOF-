@@ -57,7 +57,7 @@ Dado que SAP no permite la modificación directa de sus tablas, se ha creado una
 
 ![Plan de red](https://github.com/Mangelxd/-GTOF-/blob/main/MIPDA_TFG.png)
 ![Plan de red](https://github.com/Mangelxd/-GTOF-/blob/main/Menu_PDA.png)
-![Plan de red](hhttps://github.com/Mangelxd/-GTOF-/blob/main/Ejemplo_PDA.png)
+![Plan de red](https://github.com/Mangelxd/-GTOF-/blob/main/Ejemplo_PDA.png)
 
 
 ---
