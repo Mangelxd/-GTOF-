@@ -39,15 +39,11 @@ Este proyecto proporciona una solución completa para gestionar la trazabilidad 
 
 ## Estructura de Datos
 
-Los procedimientos almacenados acceden a las siguientes tablas simuladas del entorno SAP:
+Los procedimientos almacenados acceden a tablas simuladas del entorno SAP, replicadas en la base de datos `ES_10`.  
+Dado que SAP no permite la modificación directa de sus tablas, se ha creado una base de datos complementaria denominada `EXTRAS_TEST`, en la cual se vuelcan los datos necesarios para su consulta y edición.
 
-| Tabla         | Descripción                        |
-|---------------|------------------------------------|
-| `OWOR`, `WOR1`| Órdenes de fabricación             |
-| `OITM`        | Artículos                          |
-| `OITW`, `OIBQ`| Inventario y stock                 |
-| `OBIN`        | Ubicaciones de almacén            |
-| `M_BK_ResgistroTrazabilidad` | Tabla histórica de trazabilidad |
+![Estructura SAP 1](https://github.com/Mangelxd/-GTOF-/blob/main/bdTFG1.png?raw=true)
+![Estructura SAP 2](https://github.com/Mangelxd/-GTOF-/blob/main/bdTFG2.png?raw=true)
 
 ---
 
@@ -68,6 +64,10 @@ Los procedimientos almacenados acceden a las siguientes tablas simuladas del ent
 - **Servidor DNS** configurado (recomendado en Windows Server o Bind9 en Linux) para resolución de nombres local.
 - **Servidor DHCP** para asignación automática de direcciones IP (opcional si se usa direccionamiento estático).
 - Conectividad en red local (LAN) entre los equipos cliente, el servidor web y el servidor de base de datos.
+
+### Plan de Red
+
+![Plan de red](https://github.com/Mangelxd/-GTOF-/blob/main/Plan%20de%20red.png?raw=true)
 
 ### Servidor web
 
@@ -102,89 +102,68 @@ Los procedimientos almacenados acceden a las siguientes tablas simuladas del ent
 ---
 
 ### 🕓 Historial de Versiones
-📌 Versión 1.0 
-Fecha: Mayo 2025
-Descripción:
-Primera versión funcional del Sistema de Trazabilidad y Consulta de Fabricación (STCF).
-Se ha desarrollado una solución web con interfaz sencilla para gestionar información de materiales basada en órdenes de fabricación, permitiendo consultar, editar e imprimir etiquetas asociadas a cada línea.
+📌 **Versión 1.0**  
+**Fecha:** Mayo 2025  
+**Descripción:**  
+Primera versión funcional del Sistema de Trazabilidad y Consulta de Fabricación (STCF).  
+Se ha desarrollado una solución web con interfaz sencilla para gestionar información de materiales basada en órdenes de fabricación, permitiendo consultar, editar e imprimir etiquetas asociadas a cada línea.  
 En esta versión se implementan las siguientes funcionalidades:
 
-Login básico por usuario.
+- Login básico por usuario.
+- Conexión a base de datos MySQL.
+- Consulta dinámica por DocNum.
+- Visualización de materiales, cantidades y ubicaciones.
+- Edición en línea de campos como cantidad pendiente y observación.
+- Generación de etiquetas a partir de los datos obtenidos.
+- Estilo visual personalizado mediante style.css.
 
-Conexión a base de datos MySQL.
+📌 **Versión 2.0 – Transición a entorno local y autenticación con Active Directory**  
+**Fecha de lanzamiento:** Mayo 2025  
+**Estado:** Estable  
 
-Consulta dinámica por DocNum.
+🧾 **Descripción General**  
+La versión 2.0 del proyecto STCF representa una evolución completa respecto a la versión 1.0.  
+El sistema ha sido rediseñado para ejecutarse de forma local en un entorno basado en XAMPP y MySQL, integrando autenticación con Active Directory mediante el protocolo LDAP, lo cual habilita una gestión centralizada y segura del acceso a la plataforma.
 
-Visualización de materiales, cantidades y ubicaciones.
+🔄 **Cambios y Mejoras en esta versión**
 
-Edición en línea de campos como cantidad pendiente y observación.
+🧠 *Reestructuración técnica:*
+- Reemplazo completo del sistema de conexión `sqlsrv` por `mysqli` (MySQL).
+- Separación clara entre bases de datos:
+  - `bd_trazabilidad` para datos operativos.
+  - `bd_usuarios` o Active Directory para autenticación.
+- Adaptación de las sentencias SQL al estándar de MySQL.
 
-Generación de etiquetas a partir de los datos obtenidos.
+🔐 *Autenticación con Active Directory:*
+- Implementación del protocolo LDAP en `login.php`.
+- Búsqueda de usuario y recuperación de atributos (`cn`, `mail`) desde el servidor de dominio.
+- Eliminación del login local básico de la versión anterior (opcional).
+- Control de errores silencioso y seguro en caso de fallos de autenticación.
 
-Estilo visual personalizado mediante style.css.
+💡 *Nuevas funcionalidades:*
+- Sesiones PHP seguras tras autenticación LDAP.
+- Visualización del nombre completo del usuario tras login.
+- Preparación para registro de auditoría de accesos (pendiente para v2.1).
+- Soporte para despliegue en redes con dominio `asir.local` o equivalente.
 
-📌 Versión 2.0 – Transición a entorno local y autenticación con Active Directory
-Fecha de lanzamiento: Mayo 2025
-Estado: Estable
-
-🧾 Descripción General
-La versión 2.0 del proyecto STCF (Sistema de Trazabilidad y Consulta de Fabricación) representa una evolución completa respecto a la versión 1.0. El sistema ha sido rediseñado para ejecutarse de forma local en un entorno basado en XAMPP y MySQL, integrando ahora autenticación con Active Directory mediante el protocolo LDAP, lo cual habilita una gestión centralizada y segura del acceso a la plataforma.
-
-Esta versión busca alinear el proyecto con entornos empresariales reales, donde los sistemas de trazabilidad requieren autenticación robusta y conexión con servidores de dominio.
-
-🔄 Cambios y Mejoras en esta versión
-🧠 Reestructuración técnica:
-Reemplazo completo del sistema de conexión sqlsrv por mysqli (MySQL).
-
-Separación clara entre bases de datos:
-
-bd_trazabilidad para datos operativos.
-
-bd_usuarios o Active Directory para la autenticación.
-
-Adaptación de las sentencias SQL al estándar de MySQL.
-
-🔐 Autenticación con Active Directory:
-Implementación del protocolo LDAP en login.php.
-
-Búsqueda de usuario y recuperación de atributos (cn, mail) desde el servidor de dominio.
-
-Eliminación del login local básico de la versión anterior (opcional).
-
-Control de errores silencioso y seguro en caso de fallos de autenticación.
-
-💡 Nuevas funcionalidades:
-Sesiones PHP seguras tras autenticación LDAP.
-
-Visualización del nombre completo del usuario tras login.
-
-Preparación para registro de auditoría de accesos (pendiente para v2.1).
-
-Soporte para despliegue en redes con dominio asir.local o equivalente.
-
-🛠️ Ajustes de compatibilidad:
-Visualización de errores PHP activada en entorno local (error_reporting).
-
-Conexión funcional en XAMPP sin contraseñas de MySQL por defecto.
-
-Código portable entre Windows y Linux (adaptado a Apache + PHP 7.4+).
-
+🛠️ *Ajustes de compatibilidad:*
+- Visualización de errores PHP activada en entorno local (`error_reporting`).
+- Conexión funcional en XAMPP sin contraseñas de MySQL por defecto.
+- Código portable entre Windows y Linux (adaptado a Apache + PHP 7.4+).
 
 ---
 
 ### 📚 Bibliografía
-Documentación oficial de PHP: https://www.php.net/manual/es/
 
-Documentación de MySQL: https://dev.mysql.com/doc/
-
-Manual de HTML y CSS - MDN Web Docs: https://developer.mozilla.org/es/docs/Web
-
-Fpdf para generación de PDFs en PHP: https://www.fpdf.org/
-
-Guía de conexión PHP a MySQL (W3Schools): https://www.w3schools.com/php/php_mysql_connect.asp
-
-SAP Business One – Guía de usuario (referencia conceptual para estructura de datos y trazabilidad): [Manual interno/no público]
-
+- Documentación oficial de PHP: https://www.php.net/manual/es/
+- Documentación de MySQL: https://dev.mysql.com/doc/
+- Manual de HTML y CSS - MDN Web Docs: https://developer.mozilla.org/es/docs/Web
+- FPDF para generación de PDFs en PHP: https://www.fpdf.org/
+- Guía de conexión PHP a MySQL (W3Schools): https://www.w3schools.com/php/php_mysql_connect.asp
+- SAP Business One – Guía de usuario (referencia conceptual para estructura de datos y trazabilidad): *[Manual interno/no público]*
 
 ---
-### https://youtu.be/qVfYtmuvNuA
+
+### 🎬 Demo del Proyecto
+
+https://youtu.be/qVfYtmuvNuA
