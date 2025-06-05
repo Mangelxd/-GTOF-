@@ -7,11 +7,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         die("❌ DocNum no proporcionado.");
     }
 
-    $serverName = "";
+    $serverName = "192.168.1.100";
     $connectionOptions = [
-        "Database" => "",
-        "Uid" => "",
-        "PWD" => "",
+        "Database" => "EXTRAS_TEST",
+        "Uid" => "usuario",
+        "PWD" => "Usu@rio123!",
         "Encrypt" => "no",
         "TrustServerCertificate" => "yes"
     ];
@@ -21,8 +21,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Ejecutar procedimiento
-    $sql = "EXEC EtiquetasCajas @NumOF = ?";
-    $stmt = sqlsrv_query($conn, $sql, [$DocNum]);
+    $sql = "SELECT DocNum, Proyecto, Descripcion, Caja, Ubicacion
+        FROM EtiquetaCaja
+        WHERE DocNum = ?";
+    $stmt = sqlsrv_query($conn, $sql, [$bDocNum]);
+
     if (!$stmt) {
         die("❌ Error ejecutando el procedimiento: " . print_r(sqlsrv_errors(), true));
     }

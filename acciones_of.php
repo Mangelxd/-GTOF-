@@ -1,7 +1,7 @@
 <?php
 session_start();
 require 'bd.php';
-
+date_default_timezone_set('Europe/Madrid');
 if (!isset($_SESSION['usuario'])) {
     http_response_code(403);
     echo "No autenticado";

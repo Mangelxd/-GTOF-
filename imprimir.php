@@ -10,11 +10,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Conexión a la base de datos
-    $serverName = "";
+    $serverName = "192.168.1.100";
     $connectionOptions = [
-        "Database" => "",
-        "Uid" => "",
-        "PWD" => "",
+        "Database" => "EXTRAS_TEST",
+        "Uid" => "usuario",
+        "PWD" => "Usu@rio123!",
         "Encrypt" => "no",
         "TrustServerCertificate" => "yes"
     ];
@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Consulta SQL
     $sql = "SELECT TOP 1 PartNumber, Descripcion, Ubicacion, CantidadNecesaria, Project, DocNum
-            FROM BK_ResgistroTrazabilidad
+            FROM M_BK_ResgistroTrazabilidad
             WHERE PartNumber = ? AND DocNum = ?
             ORDER BY Id DESC";
 
@@ -53,14 +53,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         mkdir($folder, 0775, true);
     }
 
-    // Generar QR
-    include('phpqrcode/qrlib.php');
-    $qr_file = $folder . 'qr_' . preg_replace('/[^A-Za-z0-9]/', '_', $partnumber) . '.png';
-    QRcode::png($partnumber, $qr_file, QR_ECLEVEL_H, 6);
+    	// Generar QR
+    	include('phpqrcode/qrlib.php');
 
-    if (!file_exists($qr_file)) {
-        die("❌ Error generando el código QR.");
-    }
+	$folder = '/var/www/html/tmp/';
+	if (!file_exists($folder)) {
+    	mkdir($folder, 0775, true);
+	}
+
+	if (empty($partnumber)) {
+    	die("❌ PartNumber vacío.");
+	}
+
+	$qr_file = $folder . 'qr_' . preg_replace('/[^A-Za-z0-9]/', '_', $partnumber) . '.png';
+
+	QRcode::png($partnumber, $qr_file, QR_ECLEVEL_H, 6);
+
+	if (!file_exists($qr_file)) {
+   	 die("❌ Error generando el QR en: $qr_file");
+	}
 
     // Crear imagen con espacio adicional para el DocNum
     $image = imagecreatetruecolor(800, 400);
@@ -122,13 +133,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($return_var !== 0) {
         echo "<script>
             alert('❌ Error al imprimir la etiqueta.');
-            window.location.href = 'index.php?DocNum={$DocNum_encoded}';
+            window.location.href = 'index.php?of={$DocNum_encoded}';
         </script>";
     } else {
         echo "<script>
             alert('Etiqueta enviada correctamente a la impresora \"$impresora\".');
-            window.location.href = 'index.php?DocNum={$DocNum_encoded}';
+            window.location.href = 'index.php?of={$DocNum_encoded}';
         </script>";
     }
 }
 ?>
+

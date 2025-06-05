@@ -16,11 +16,11 @@ $resultados = [];
 
 if ($conn) {
     if ($DocNum !== '') {
-        sqlsrv_query($conn, "EXEC dbo.Actualizar_BK_ResgistroTrazabilidad @DocNum = ?", [$DocNum]);
+        sqlsrv_query($conn, "EXEC dbo.Actualizar_M_BK_ResgistroTrazabilidad @DocNum = ?", [$DocNum]);
 
         $sql = "SELECT Id, PartNumber, Descripcion, CantidadPendiente, CantidadNecesaria, Ubicacion,
                Observacion, Lote, UltimaActualizacion, DocNum, Project
-        FROM dbo.BK_ResgistroTrazabilidad
+        FROM dbo.M_BK_ResgistroTrazabilidad
         WHERE DocNum = ?
           AND (
               Ubicacion IS NULL
@@ -36,8 +36,8 @@ $params = [$DocNum];
         }
         $sql .= " ORDER BY Ubicacion ASC";
     } else {
-        $sql = "SELECT * 
-        FROM [DHV_EXTRAS_TEST].[dbo].[Picking_OF] AS p
+        $sql = "SELECT *
+        FROM [EXTRAS_TEST].[dbo].[Picking_OF] AS p
         LEFT JOIN [EXTRAS_TEST].[dbo].[Ubicaciones] AS u
         ON p.UbicacionId = u.IdUbicacion
         WHERE p.FechaPicking <= DATEADD(MONTH, +2, GETDATE())
@@ -59,7 +59,6 @@ $params = [];
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -83,7 +82,7 @@ $params = [];
 <body>
 <header>
     <div style="display: flex; align-items: center;">
-        <img src="" alt="Logo empresa" />
+        <img src="" alt="" />
         <h1 style="margin: 0 0.5rem;">Mi empresa</h1>
     </div>
     <div style="margin-left: auto;">
@@ -113,17 +112,17 @@ $params = [];
 <?php endif; ?>
 
 <?php if ($DocNum): ?>
-<form method="POST" action="imprimir_todo.php" onsubmit="return confirmarImpresion()">
+<!-- <form method="POST" action="imprimir_todo.php" onsubmit="return confirmarImpresion()">
     <input type="hidden" name="DocNum" value="<?= htmlspecialchars($DocNum) ?>">
     <label for="printer-select"><strong>Impresora:</strong></label>
     <select name="printer" id="printer-select" required>
         <option value="">-- Seleccionar impresora --</option>
- <!--       <option value="Godex_Oficina">Godex Oficina</option> -->
+        <option value="Godex_Oficina">Godex Oficina</option> 
         <option value="Godex_Almacen">Godex Almacén</option>
         <option value="Zebra_Sala">Zebra Sala</option>
     </select>
     <button type="submit" class="print-of-btn">🖨ï¸ Imprimir toda la OF</button>
-</form>
+</form>  -->
 <form method="POST" action="imprimir_caja.php" target="_blank" onsubmit="return confirmarImpresionCaja()" style="margin-top: 0.5rem;">
     <input type="hidden" name="DocNum" value="<?= htmlspecialchars($DocNum) ?>">
     <label for="printer-caja-select"><strong>Impresora:</strong></label>

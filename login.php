@@ -1,58 +1,70 @@
 <?php
+ob_start(); // ¡Agregado para evitar problemas con header()!
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $usuario = $_POST["usuario"] ?? '';
     $password = $_POST["password"] ?? '';
 
-    // Configuración del servidor Active Directory
-    $ldap_server = "ldap://192.168.3.10";         // IP o nombre del servidor AD
-    $ldap_domain = "asir.local";                 // Dominio (FQDN)
-    $ldap_dn_base = "DC=asir,DC=local";          // Distinguished Name base de búsqueda
+    $ldap_server = "ldap://192.168.1.100";
+    $ldap_domain = "GTOF.local";
+    $ldap_dn_base = "DC=GTOF,DC=local";
+    $ldap_user = "$usuario@GTOF.local";
 
-    // Formato del usuario para la conexión
-    $ldap_user = "$ldap_domain\\$usuario";       // Ej: asir.local\\jlopez
-
-    // Conexión LDAP
     $ldap_conn = ldap_connect($ldap_server);
     ldap_set_option($ldap_conn, LDAP_OPT_PROTOCOL_VERSION, 3);
     ldap_set_option($ldap_conn, LDAP_OPT_REFERRALS, 0);
 
-    if (@ldap_bind($ldap_conn, $ldap_user, $password)) {
-        // Autenticación exitosa, ahora buscamos datos del usuario
-        $filter = "(sAMAccountName=$usuario)";
-        $attributes = ["cn", "mail"];
-        $search = ldap_search($ldap_conn, $ldap_dn_base, $filter, $attributes);
-        $entries = ldap_get_entries($ldap_conn, $search);
-
-        // Guardamos la sesión del usuario
-        $_SESSION["usuario"] = $usuario;
-        $_SESSION["nombreCompleto"] = $entries[0]["cn"][0] ?? $usuario;
-        $_SESSION["correo"] = $entries[0]["mail"][0] ?? "";
-
-        ldap_unbind($ldap_conn); // Cerramos la conexión LDAP
-
-        header("Location: index.php");
-        exit();
+    if (!$ldap_conn) {
+        $error = "❌ No se pudo conectar al servidor LDAP.";
     } else {
-        $error = "Usuario o contraseña incorrectos en Active Directory.";
+        if (@ldap_bind($ldap_conn, $ldap_user, $password)) {
+            $filter = "(sAMAccountName=$usuario)";
+            $attributes = ["cn", "mail"];
+            $search = ldap_search($ldap_conn, $ldap_dn_base, $filter, $attributes);
+
+            if (!$search) {
+                $error = "❌ Falló la búsqueda LDAP. " . ldap_error($ldap_conn);
+            } else {
+                $entries = ldap_get_entries($ldap_conn, $search);
+                if ($entries["count"] == 0) {
+                    $error = "⚠️ Usuario autenticado pero no se encontraron datos.";
+                } else {
+                    $_SESSION["usuario"] = $usuario;
+                    $_SESSION["nombreCompleto"] = $entries[0]["cn"][0] ?? $usuario;
+                    $_SESSION["correo"] = $entries[0]["mail"][0] ?? "";
+                    ldap_unbind($ldap_conn);
+                    header("Location: index.php");
+                    exit;
+                }
+            }
+        } else {
+            $error = "❌ Usuario o contraseña incorrectos. (" . ldap_error($ldap_conn) . ")";
+        }
     }
 }
 ?>
 
-<!-- Formulario simple -->
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
+    <meta charset="UTF-8">
     <title>Login AD</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h2>Iniciar sesión con Active Directory</h2>
-    <form method="post" action="login.php">
-        <input type="text" name="usuario" placeholder="Usuario" required><br>
-        <input type="password" name="password" placeholder="Contraseña" required><br>
-        <button type="submit">Iniciar sesión</button>
-    </form>
-    <?php if (isset($error)) echo "<p style='color:red;'>$error</p>"; ?>
+    <div class="login-container">
+        <h2>Iniciar sesión en GTOF</h2>
+        <form method="post" action="login.php">
+            <input type="text" name="usuario" placeholder="Usuario" required>
+            <input type="password" name="password" placeholder="Contraseña" required>
+            <button type="submit">Iniciar sesión</button>
+        </form>
+        <?php if (isset($error)) echo "<p class='error' style='color:red;'>$error</p>"; ?>
+    </div>
 </body>
 </html>

@@ -23,6 +23,7 @@ Este proyecto proporciona una solución completa para gestionar la trazabilidad 
 - Edición directa de información por línea (cantidad, lote, ubicación, observaciones).
 - Impresión de etiquetas con códigos QR.
 - Registro automático en una tabla histórica sin duplicados.
+- Identificación única por línea en formato `DocNum;N`.
 
 ---
 
@@ -35,12 +36,18 @@ Este proyecto proporciona una solución completa para gestionar la trazabilidad 
 5. Es posible imprimir una etiqueta por material, con código QR, seleccionando la impresora.
 
 ---
+
 ## Estructura de Datos
 
-Los procedimientos almacenados acceden a tablas simuladas del entorno SAP, replicadas en la base de datos ES_10. Debido a las restricciones de edición en la base de datos de SAP, se ha creado una base adicional denominada EXTRAS_TEST, donde se vuelcan los datos necesarios para su análisis y modificación.
+Los procedimientos almacenados acceden a las siguientes tablas simuladas del entorno SAP:
 
-![Diagrama 1](https://github.com/Mangelxd/-GTOF-/blob/main/bdTFG1.png?raw=true)
-![Diagrama 2](https://github.com/Mangelxd/-GTOF-/blob/main/bdTFG2.png?raw=true)
+| Tabla         | Descripción                        |
+|---------------|------------------------------------|
+| `OWOR`, `WOR1`| Órdenes de fabricación             |
+| `OITM`        | Artículos                          |
+| `OITW`, `OIBQ`| Inventario y stock                 |
+| `OBIN`        | Ubicaciones de almacén            |
+| `M_BK_ResgistroTrazabilidad` | Tabla histórica de trazabilidad |
 
 ---
 
@@ -52,16 +59,15 @@ Los procedimientos almacenados acceden a tablas simuladas del entorno SAP, repli
 - **Selector de impresora:** para enviar etiquetas directamente desde la interfaz.
 - **Impresión con QR:** etiquetas generadas automáticamente usando `phpqrcode`.
 
-![InterFazWEB1](https://github.com/Mangelxd/-GTOF-/blob/main/MIPDA_TFG.png)
-![InterFazWEB2](https://github.com/Mangelxd/-GTOF-/blob/main/Menu_PDA.png)
-![InterFazWEB1](https://github.com/Mangelxd/-GTOF-/blob/main/Ejemplo_PDA.png)
-
-
 ---
+
+## Requisitos Técnicos
 
 ### Infraestructura de red
 
-![Plan de red](https://github.com/Mangelxd/-GTOF-/blob/main/Plan%20de%20red.png?raw=true)
+- **Servidor DNS** configurado (recomendado en Windows Server o Bind9 en Linux) para resolución de nombres local.
+- **Servidor DHCP** para asignación automática de direcciones IP (opcional si se usa direccionamiento estático).
+- Conectividad en red local (LAN) entre los equipos cliente, el servidor web y el servidor de base de datos.
 
 ### Servidor web
 

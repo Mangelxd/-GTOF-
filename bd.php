@@ -1,11 +1,11 @@
 <?php
-$serverName = "";
+$serverName = "192.168.1.100";
 
 // Conexión a EXTRAS_TEST (datos de trazabilidad, OF, etc.)
 $connectionExtras = [
     "Database" => "EXTRAS_TEST",
-    "Uid" => "",
-    "PWD" => "",
+    "Uid" => "usuario",
+    "PWD" => "Usu@rio123!",
     "Encrypt" => "no",
     "TrustServerCertificate" => "yes"
 ];
@@ -17,9 +17,9 @@ if (!$connExtras) {
 
 // Conexión a ES_10 (tabla OHEM para login)
 $connectionUsuarios = [
-    "Database" => "_ES_10",
-    "Uid" => "",
-    "PWD" => "",
+    "Database" => "ES_10",
+    "Uid" => "usuario",
+    "PWD" => "Usu@rio123!",
     "Encrypt" => "no",
     "TrustServerCertificate" => "yes"
 ];

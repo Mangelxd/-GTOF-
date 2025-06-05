@@ -167,6 +167,31 @@ button {
   padding: 0.8rem;
   margin-bottom: 1rem;
 }
+body {
+    background-color: #f9f9f9;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+form {
+    display: inline-block;
+    padding: 20px;
+    border: 1px solid #ccc;
+    background: white;
+    margin-top: 50px;
+}
+
+input, button {
+    display: block;
+    margin: 10px auto;
+    padding: 8px;
+    width: 200px;
+}
+
+.error {
+    color: red;
+    font-weight: bold;
+}
 
 /* MODAL SCANNER */
 #reader-modal {
@@ -522,4 +547,52 @@ small {
   border-radius: 6px;
   z-index: 9999;
   cursor: pointer;
+}
+/* CONTENEDOR LOGIN */
+.login-container {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  margin: 3rem auto;
+  text-align: center;
+}
+
+/* CAMPOS DE FORMULARIO */
+.login-container input[type="text"],
+.login-container input[type="password"] {
+  width: 100%;
+  padding: 0.8rem;
+  margin: 0.5rem 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+/* BOTÓN DE INICIAR SESIÓN */
+.login-container button {
+  width: 100%;
+  padding: 0.8rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: bold;
+  margin-top: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.login-container button:hover {
+  background-color: #0056b3;
+}
+
+/* MENSAJE DE ERROR */
+.login-container .error {
+  color: red;
+  margin-top: 1rem;
+  font-size: 0.95rem;
 }
