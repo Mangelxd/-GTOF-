@@ -109,6 +109,22 @@ Dado que SAP no permite la modificación directa de sus tablas, se ha creado una
 - Impresoras compatibles (Godex, Zebra u otras que admitan impresión de imágenes PNG)
 - Acceso a red de las impresoras desde el servidor web
 
+---
+### 🐍 Python – Inserción de datos a SAP simulado
+
+Se ha desarrollado una aplicación de escritorio en Python (Tkinter) para insertar datos relacionados con órdenes de fabricación en la base de datos `ES_10`, que simula SAP Business One. La herramienta permite registrar artículos, órdenes de fabricación, ubicaciones y stock de forma rápida y estructurada.
+
+**Características principales:**
+
+- Interfaz para introducir: `ItemCode`, `Descripción`, `Cantidad`, `DocNum`, `Proyecto` y `Ubicación`.
+- Inserción automática en: `OITM`, `OWOR`, `WOR1`, `OBIN`, `OITW` y `OIBQ`.
+- Validación previa para evitar duplicados.
+- Desplegable dinámico con ubicaciones de `OBIN`.
+- Conexión mediante `pyodbc` a SQL Server.
+- Mensajes de éxito y error integrados (`tkinter.messagebox`).
+
+---
+
 ### Seguridad y control de acceso
 
 - Sistema de login con sesiones (ya integrado)
