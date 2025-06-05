@@ -123,6 +123,8 @@ Se ha desarrollado una aplicación de escritorio en Python (Tkinter) para insert
 - Conexión mediante `pyodbc` a SQL Server.
 - Mensajes de éxito y error integrados (`tkinter.messagebox`).
 
+![Plan de red](https://github.com/Mangelxd/-GTOF-/blob/main/Ejemplo_Python.png)
+
 ---
 
 ### Seguridad y control de acceso
