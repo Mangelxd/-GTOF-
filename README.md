@@ -35,18 +35,17 @@ Este proyecto proporciona una solución completa para gestionar la trazabilidad 
 5. Es posible imprimir una etiqueta por material, con código QR, seleccionando la impresora.
 
 ---
-
 ## Estructura de Datos
 
 Los procedimientos almacenados acceden a las siguientes tablas simuladas del entorno SAP:
 
-| Tabla         | Descripción                        |
-|---------------|------------------------------------|
-| `OWOR`, `WOR1`| Órdenes de fabricación             |
-| `OITM`        | Artículos                          |
-| `OITW`, `OIBQ`| Inventario y stock                 |
-| `OBIN`        | Ubicaciones de almacén            |
-| `M_BK_ResgistroTrazabilidad` | Tabla histórica de trazabilidad |
+![Diagrama 1](https://github.com/Mangelxd/-GTOF-/blob/main/bdTFG1.png?raw=true)
+![Diagrama 2](https://github.com/Mangelxd/-GTOF-/blob/main/bdTFG2.png?raw=true)
+
+---
+## Plan de red 
+
+![Plan de red](https://github.com/Mangelxd/-GTOF-/blob/main/Plan%20de%20red.png?raw=true)
 
 ---
 
