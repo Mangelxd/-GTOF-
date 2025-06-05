@@ -183,6 +183,30 @@ El sistema ha sido rediseñado para ejecutarse de forma local en un entorno basa
 - Conexión funcional en XAMPP sin contraseñas de MySQL por defecto.
 - Código portable entre Windows y Linux (adaptado a Apache + PHP 7.4+).
 
+📌 **Versión 3.0 – Expansión con cliente de escritorio en Python**
+
+**Fecha de lanzamiento:** Junio 2025  
+**Estado:** Estable
+
+🧾 **Descripción General**  
+La versión 3.0 del Sistema de Trazabilidad y Consulta de Fabricación (STCF) introduce una nueva interfaz cliente de escritorio desarrollada en Python con Tkinter. Esta herramienta complementa la aplicación web, permitiendo la inserción directa de datos en el sistema desde equipos locales o portátiles, sin necesidad de acceso al navegador.
+
+Esta evolución responde a la necesidad de flexibilidad operativa en entornos industriales, donde es común registrar datos en planta o en almacenes mediante terminales ligeros.
+
+🔄 **Cambios y Mejoras en esta versión**
+
+🖥️ *Nuevo cliente de escritorio:*
+- Aplicación Python con interfaz gráfica para registrar órdenes de fabricación, artículos y ubicaciones.
+- Inserción automática y validación sobre tablas críticas: `OWOR`, `WOR1`, `OITM`, `OBIN`, `OITW`, `OIBQ`.
+
+📡 *Conectividad ampliada:*
+- Conexión directa a SQL Server mediante `pyodbc`.
+- Lectura en tiempo real de ubicaciones disponibles desde `OBIN`.
+
+✅ *Mejoras en integridad de datos:*
+- Validación automática para evitar duplicados de artículos y ubicaciones.
+- Confirmaciones visuales y alertas en caso de error mediante `messagebox`.
+
 ---
 
 ### 📚 Bibliografía
