@@ -23,7 +23,6 @@ Este proyecto proporciona una solución completa para gestionar la trazabilidad 
 - Edición directa de información por línea (cantidad, lote, ubicación, observaciones).
 - Impresión de etiquetas con códigos QR.
 - Registro automático en una tabla histórica sin duplicados.
-- Identificación única por línea en formato `DocNum;N`.
 
 ---
 
