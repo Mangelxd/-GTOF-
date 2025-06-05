@@ -11,7 +11,15 @@ Este proyecto proporciona una solución completa para gestionar la trazabilidad 
 - [Estructura de Datos](#estructura-de-datos)
 - [Interfaz Web](#interfaz-web)
 - [Requisitos Técnicos](#requisitos-técnicos)
-- [Público Objetivo](#público-objetivo)
+  - [Infraestructura de red](#infraestructura-de-red)
+  - [Plan de Red](#plan-de-red)
+  - [Servidor web](#servidor-web)
+  - [Servidor de base de datos + Active Directory](#servidor-de-base-de-datos--active-directory)
+  - [Impresión de etiquetas](#impresión-de-etiquetas)
+  - [Seguridad y control de acceso](#seguridad-y-control-de-acceso)
+- [Historial de Versiones](#🕓-historial-de-versiones)
+- [Bibliografía](#📚-bibliografía)
+- [Demo del Proyecto](#🎬-demo-del-proyecto)
 
 ---
 
@@ -82,16 +90,21 @@ Dado que SAP no permite la modificación directa de sus tablas, se ha creado una
   - `php-sqlsrv` (para conectar con SQL Server)
   - `phpqrcode` (para generar códigos QR)
 
-### Servidor de base de datos
+### Servidor de base de datos + Active Directory
 
-- **SQL Server** (puede alojarse en Windows Server)
-- Base de datos: `M_EXTRAS_TEST`
-- Permisos para crear procedimientos almacenados y tablas
-- Configuración del puerto SQL (por defecto: 1433) y acceso desde el servidor web
+- **SQL Server** (puede alojarse en Windows Server o en una máquina virtual dedicada).
+- **Base de datos principal:** `M_EXTRAS_TEST`, que almacena los datos de trazabilidad operativa.
+- **Permisos necesarios:**
+  - Creación y ejecución de procedimientos almacenados.
+  - Lectura y escritura sobre las tablas de operación y trazabilidad.
+- **Configuración de red:**
+  - Habilitación del puerto **1433** (por defecto) en el firewall.
+  - Acceso remoto habilitado para conexiones desde el servidor web.
+- Se puede utilizar una **instancia nombrada o predeterminada**, según la configuración del entorno (ej. `SQLSERVER\MSSQLSERVER` o `.`).
 
 ### Impresión de etiquetas
 
-- Sistema operativo compatible: **Ubuntu Server** o **Windows Server**
+- Sistema operativo compatible: **Ubuntu Server** 
 - Servidor de impresión instalado con soporte para CUPS (`cups` y `lp` en Linux)
 - Impresoras compatibles (Godex, Zebra u otras que admitan impresión de imágenes PNG)
 - Acceso a red de las impresoras desde el servidor web
@@ -100,8 +113,6 @@ Dado que SAP no permite la modificación directa de sus tablas, se ha creado una
 
 - Sistema de login con sesiones (ya integrado)
 - Firewall configurado para permitir tráfico HTTP/HTTPS y SQL Server
-- Opcional: VLAN o subred dedicada para el tráfico de impresión
-
 ---
 
 ### 🕓 Historial de Versiones
