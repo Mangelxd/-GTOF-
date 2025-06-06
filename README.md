@@ -1,4 +1,4 @@
-# Gestión de Trazabilidad por Orden de Fabricación
+## Sistema de Trazabilidad y Consulta de Orden Fabricación (STCOF)
 
 Este proyecto proporciona una solución completa para gestionar la trazabilidad de materiales según órdenes de fabricación (`DocNum`) en un entorno que simula SAP Business One. A través de una interfaz web sencilla, permite consultar, modificar e imprimir datos críticos de materiales y ubicaciones de forma centralizada.
 
