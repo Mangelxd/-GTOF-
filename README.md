@@ -227,3 +227,9 @@ https://youtu.be/qVfYtmuvNuA
 ### 🎬 2ºCheck Point
 
 https://youtu.be/n_BeAw7Dh3g
+
+---
+
+### Enlaces de descarga de las OVAS de las maquinas virtuales usadas en el Proyecto
+
+https://drive.google.com/drive/folders/1DqsqEbjt513v7mdX-li80VROh-f5qIn8?usp=sharing
