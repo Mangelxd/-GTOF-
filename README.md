@@ -72,8 +72,8 @@ Dado que SAP no permite la modificación directa de sus tablas, se ha creado una
 
 ### Infraestructura de red
 
-- **Servidor DNS** configurado (recomendado en Windows Server o Bind9 en Linux) para resolución de nombres local.
-- **Servidor DHCP** para asignación automática de direcciones IP (opcional si se usa direccionamiento estático).
+- **Servidor DNS** configurado en Pfsense para resolución de nombres local.
+- **Servidor DHCP** para asignación automática de direcciones IP y con IPs fijas para el WindowsServer y el UbuntuServer.
 - Conectividad en red local (LAN) entre los equipos cliente, el servidor web y el servidor de base de datos.
 
 ### Plan de Red
@@ -82,7 +82,7 @@ Dado que SAP no permite la modificación directa de sus tablas, se ha creado una
 
 ### Servidor web
 
-- Sistema operativo: **Ubuntu Server** (recomendado) o cualquier distribución Linux compatible.
+- Sistema operativo: **Ubuntu Server**.
 - Servidor web: **Apache2** con PHP instalado.
 - Extensiones de PHP necesarias:
   - `php-mbstring`
@@ -92,20 +92,20 @@ Dado que SAP no permite la modificación directa de sus tablas, se ha creado una
 
 ### Servidor de base de datos + Active Directory
 
-- **SQL Server** (puede alojarse en Windows Server o en una máquina virtual dedicada).
+- **SQL Server** en Windows Server.
 - **Base de datos principal:** `M_EXTRAS_TEST`, que almacena los datos de trazabilidad operativa.
 - **Permisos necesarios:**
   - Creación y ejecución de procedimientos almacenados.
   - Lectura y escritura sobre las tablas de operación y trazabilidad.
 - **Configuración de red:**
-  - Habilitación del puerto **1433** (por defecto) en el firewall.
+  - Habilitación del puerto **1433** en el firewall.
   - Acceso remoto habilitado para conexiones desde el servidor web.
 - Se puede utilizar una **instancia nombrada o predeterminada**, según la configuración del entorno (ej. `SQLSERVER\MSSQLSERVER` o `.`).
 
 ### Impresión de etiquetas
 
 - Sistema operativo compatible: **Ubuntu Server** 
-- Servidor de impresión instalado con soporte para CUPS (`cups` y `lp` en Linux)
+- Servidor de impresión instalado con soporte para CUPS
 - Impresoras compatibles (Godex, Zebra u otras que admitan impresión de imágenes PNG)
 - Acceso a red de las impresoras desde el servidor web
 
